@@ -1,0 +1,10 @@
+{
+    "source_directories": ["."],
+    "search_path": [
+        "C:\\Python314\\Lib\\site-packages"
+    ],
+    "site_package_search_strategy": "pep503",
+    "python_version": "3.14",
+    "typeshed": "C:\\Python314\\Lib",
+    "strict": false
+}

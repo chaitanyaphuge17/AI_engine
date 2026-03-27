@@ -1,0 +1,164 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 700px;
+                 background-color: #0f172a;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "font": {"color": "white"}, "id": "USA", "label": "USA", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Iran", "label": "Iran", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Russia", "label": "Russia", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "India", "label": "India", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "UN", "label": "UN", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Israel", "label": "Israel", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "ergy policy: Russian oil.Amid negotiations over an interim trade framew", "label": "ergy policy: Russian oil.Amid negotiations over an interim trade framew", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "nt ahead of the next Assembly elections in Assam, four opposition pa", "label": "nt ahead of the next Assembly elections in Assam, four opposition pa", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "China", "label": "China", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "EU", "label": "EU", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "AI", "label": "AI", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "NSA", "label": "NSA", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "IMF", "label": "IMF", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "attled emerging markets since war engulfed the Middle East, but", "label": "attled emerging markets since war engulfed the Middle East, but", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "draw lessons from the ongoing conflict in the Middle East and the pr", "label": "draw lessons from the ongoing conflict in the Middle East and the pr", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "d to the widening Middle East conflict has driven crude to multiyear", "label": "d to the widening Middle East conflict has driven crude to multiyear", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "the Philadelphia Flyers.\r\nForward Brett Harrison, a 2021 third", "label": "the Philadelphia Flyers.\r\nForward Brett Harrison, a 2021 third", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "llegally collected\u00a0tariffs, a meeting a court official desc\u2026 [+3904", "label": "llegally collected\u00a0tariffs, a meeting a court official desc\u2026 [+3904", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Intel", "label": "Intel", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "NATO", "label": "NATO", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "nators have added left winger Warren Foegele to their team\u0027s ro", "label": "nators have added left winger Warren Foegele to their team\u0027s ro", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "claimed that Trump was fully aware of the potential for violenc", "label": "claimed that Trump was fully aware of the potential for violenc", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "two companies quickly moved toward talks after the claim. Curve", "label": "two companies quickly moved toward talks after the claim. Curve", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "e before the new league year, according to ESPNs Adam Schefter.\r\nB", "label": "e before the new league year, according to ESPNs Adam Schefter.\r\nB", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "UAE", "label": "UAE", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Donald Trump", "label": "Donald Trump", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "hifting stance on the Iranian conflict has faced cr\u2026 [+4122 chars]", "label": "hifting stance on the Iranian conflict has faced cr\u2026 [+4122 chars]", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "e island nation\u2019s coast in an attack which killed a\u2026 [+1547 chars]", "label": "e island nation\u2019s coast in an attack which killed a\u2026 [+1547 chars]", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "en sharply since the military conflict between the US and Iran began", "label": "en sharply since the military conflict between the US and Iran began", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "conflict escalates and Trump warns there will be no deal with", "label": "conflict escalates and Trump warns there will be no deal with", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "lled Operation Epic Fury, the conflict quickly became something more", "label": "lled Operation Epic Fury, the conflict quickly became something more", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "d Beirut.\r\nAs the Middle East conflict enters its second week, hosti", "label": "d Beirut.\r\nAs the Middle East conflict enters its second week, hosti", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "UK", "label": "UK", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Ukraine", "label": "Ukraine", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Canada", "label": "Canada", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Mexico", "label": "Mexico", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Australia", "label": "Australia", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "France", "label": "France", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "n response to the Middle East war, the French military told AFP", "label": "n response to the Middle East war, the French military told AFP", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "WHO", "label": "WHO", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "t (CAS) partially amended the sanctions imposed by FIFA on seven Mal", "label": "t (CAS) partially amended the sanctions imposed by FIFA on seven Mal", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Apple", "label": "Apple", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Meta", "label": "Meta", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "e canceling their coverage of war risk and demanding 200% more", "label": "e canceling their coverage of war risk and demanding 200% more", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "% more to reinstate policies, according to people familiar with th", "label": "% more to reinstate policies, according to people familiar with th", "shape": "dot"}]);
+                  edges = new vis.DataSet([{"from": "USA", "label": "CONFLICT", "to": "Iran"}, {"from": "Russia", "label": "SANCTIONS", "to": "India"}, {"from": "Russia", "label": "SANCTIONS", "to": "UN"}, {"from": "Russia", "label": "CONFLICT", "to": "Iran"}, {"from": "Russia", "label": "CONFLICT", "to": "Israel"}, {"from": "Russia", "label": "TRADE", "to": "ergy policy: Russian oil.Amid negotiations over an interim trade framew"}, {"from": "India", "label": "TECH_DEVELOPMENT", "to": "nt ahead of the next Assembly elections in Assam, four opposition pa"}, {"from": "India", "label": "CONFLICT", "to": "Iran"}, {"from": "China", "label": "TECH_DEVELOPMENT", "to": "UN"}, {"from": "UN", "label": "TECH_DEVELOPMENT", "to": "EU"}, {"from": "UN", "label": "TECH_DEVELOPMENT", "to": "AI"}, {"from": "UN", "label": "TECH_DEVELOPMENT", "to": "NSA"}, {"from": "UN", "label": "CONFLICT", "to": "IMF"}, {"from": "UN", "label": "CONFLICT", "to": "attled emerging markets since war engulfed the Middle East, but"}, {"from": "UN", "label": "CONFLICT", "to": "draw lessons from the ongoing conflict in the Middle East and the pr"}, {"from": "UN", "label": "CONFLICT", "to": "d to the widening Middle East conflict has driven crude to multiyear"}, {"from": "UN", "label": "CONFLICT", "to": "the Philadelphia Flyers.\r\nForward Brett Harrison, a 2021 third"}, {"from": "UN", "label": "ALLY", "to": "llegally collected\u00a0tariffs, a meeting a court official desc\u2026 [+3904"}, {"from": "Intel", "label": "TECH_DEVELOPMENT", "to": "UN"}, {"from": "Intel", "label": "CONFLICT", "to": "EU"}, {"from": "NATO", "label": "CONFLICT", "to": "nators have added left winger Warren Foegele to their team\u0027s ro"}, {"from": "NATO", "label": "ALLY", "to": "UN"}, {"from": "AI", "label": "CONFLICT", "to": "claimed that Trump was fully aware of the potential for violenc"}, {"from": "AI", "label": "CONFLICT", "to": "two companies quickly moved toward talks after the claim. Curve"}, {"from": "AI", "label": "TRADE", "to": "e before the new league year, according to ESPNs Adam Schefter.\r\nB"}, {"from": "Iran", "label": "TECH_DEVELOPMENT", "to": "UN"}, {"from": "Iran", "label": "TECH_DEVELOPMENT", "to": "NATO"}, {"from": "Iran", "label": "TECH_DEVELOPMENT", "to": "AI"}, {"from": "Iran", "label": "TECH_DEVELOPMENT", "to": "UAE"}, {"from": "Iran", "label": "TECH_DEVELOPMENT", "to": "Donald Trump"}, {"from": "Iran", "label": "CONFLICT", "to": "EU"}, {"from": "Iran", "label": "CONFLICT", "to": "hifting stance on the Iranian conflict has faced cr\u2026 [+4122 chars]"}, {"from": "Iran", "label": "CONFLICT", "to": "e island nation\u2019s coast in an attack which killed a\u2026 [+1547 chars]"}, {"from": "Iran", "label": "CONFLICT", "to": "en sharply since the military conflict between the US and Iran began"}, {"from": "Iran", "label": "CONFLICT", "to": "conflict escalates and Trump warns there will be no deal with"}, {"from": "Iran", "label": "CONFLICT", "to": "lled Operation Epic Fury, the conflict quickly became something more"}, {"from": "Israel", "label": "TECH_DEVELOPMENT", "to": "UN"}, {"from": "Israel", "label": "TECH_DEVELOPMENT", "to": "Iran"}, {"from": "Israel", "label": "CONFLICT", "to": "Donald Trump"}, {"from": "Israel", "label": "CONFLICT", "to": "d Beirut.\r\nAs the Middle East conflict enters its second week, hosti"}, {"from": "UK", "label": "CONFLICT", "to": "UN"}, {"from": "UK", "label": "CONFLICT", "to": "Israel"}, {"from": "UK", "label": "CONFLICT", "to": "Ukraine"}, {"from": "Canada", "label": "TRADE", "to": "Mexico"}, {"from": "Australia", "label": "SANCTIONS", "to": "UN"}, {"from": "France", "label": "CONFLICT", "to": "n response to the Middle East war, the French military told AFP"}, {"from": "WHO", "label": "SANCTIONS", "to": "t (CAS) partially amended the sanctions imposed by FIFA on seven Mal"}, {"from": "WHO", "label": "TRADE", "to": "EU"}, {"from": "WHO", "label": "ALLY", "to": "AI"}, {"from": "Apple", "label": "TECH_DEVELOPMENT", "to": "UN"}, {"from": "Meta", "label": "TRADE", "to": "UN"}, {"from": "NSA", "label": "ALLY", "to": "AI"}, {"from": "e canceling their coverage of war risk and demanding 200% more", "label": "CONFLICT", "to": "% more to reinstate policies, according to people familiar with th"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.01,
+            "damping": 0.4,
+            "gravitationalConstant": -50,
+            "springConstant": 0.08,
+            "springLength": 100
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
